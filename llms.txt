@@ -1,0 +1,17 @@
+# SafeExplorer
+
+> SafeExplorer: An Unbiased Mixed-Policy Gradient for Reinforcement Learning with Recovery Interventions. Transactions on Machine Learning Research (TMLR), October 2026. SafeExplorer modifies PPO with a policy-gradient estimator that is unbiased for the mixed-policy return when a recovery policy takes over outside a safe region. In simulation it cuts training falls versus PPO by 255×, 43× and 21× on HalfCheetah, Ant and Unitree Go1.
+
+The fall reductions are against PPO without recovery, in total training falls over 8M steps (HalfCheetah, Ant) or 16M steps (Go1), mean of 10 seeds. Against the constrained baselines, fall counts are comparable on HalfCheetah (CPO and PPO-Lagrangian) and on Ant (CPO), and SafeExplorer's advantage there is reward.
+
+Authors: Elham Daneshmand, Majid Khadiv, Glen Berseth, Hsiu-Chin Lin. Cite as: Elham Daneshmand, Majid Khadiv, Glen Berseth and Hsiu-Chin Lin. SafeExplorer: An Unbiased Mixed-Policy Gradient for Reinforcement Learning with Recovery Interventions. Transactions on Machine Learning Research, 2026.
+
+## Paper
+
+- [Project page as Markdown](https://lhumd.github.io/safeexplorer/index.md): abstract, method with equations, algorithm, results tables, limitations and BibTeX
+- [OpenReview forum](https://openreview.net/forum?id=ppOrbSsMM0): the TMLR publication record
+- [PDF](https://lhumd.github.io/safeexplorer/paper.pdf): full paper with proofs and appendices
+
+## Optional
+
+- [Project page](https://lhumd.github.io/safeexplorer/index.html): the same content as HTML, with figures and rollout videos

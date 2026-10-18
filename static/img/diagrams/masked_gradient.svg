@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="sx-diagram" viewBox="0 0 800 550" role="img" aria-labelledby="mg-title mg-desc">
+  <title id="mg-title">Standard PPO update versus the SafeExplorer masked gradient</title>
+  <desc id="mg-desc">A rollout of twelve timesteps from the mixed policy. The main policy acts on steps 1 to 5 and 9 to 12, the recovery policy on steps 6 to 8. A standard PPO update scores every step, including the recovery steps, as if the main policy had chosen those actions, which biases the gradient. The SafeExplorer masked gradient adds the score term, the gradient of log pi theta of a t given s t, only on main-policy steps. Recovery steps contribute no score term, so the recovery policy's action density is never evaluated. The advantage of every main step is still computed over the full trajectory, so recovery segments still enter through the return.</desc>
+  <style>
+    .sx-diagram,.sx-diagram text{font-family:inherit}
+    .sx-diagram text.d-fg,.sx-diagram tspan.d-fg{fill:var(--c-fg,#1d2433)}
+    .sx-diagram :not(text):not(tspan).d-fg{stroke:var(--c-fg,#1d2433);fill:none}
+    .sx-diagram text.d-muted,.sx-diagram tspan.d-muted{fill:var(--c-muted,#5b6475)}
+    .sx-diagram :not(text):not(tspan).d-muted{stroke:var(--c-muted,#5b6475);fill:none}
+    .sx-diagram text.d-main,.sx-diagram tspan.d-main{fill:var(--c-main-text,#006b67)}
+    .sx-diagram :not(text):not(tspan).d-main{stroke:var(--c-main,#0f8b8d);fill:none}
+    .sx-diagram .d-main-fill{fill:var(--c-main,#0f8b8d)}
+    .sx-diagram text.d-recovery,.sx-diagram tspan.d-recovery{fill:var(--c-recovery-text,#9a4a06)}
+    .sx-diagram :not(text):not(tspan).d-recovery{stroke:var(--c-recovery,#c4610c);fill:none}
+    .sx-diagram .d-recovery-fill{fill:var(--c-recovery,#c4610c)}
+    .sx-diagram .d-safe-fill{fill:var(--c-safe,#0f8b8d);fill-opacity:.12}
+    .sx-diagram text.d-fall,.sx-diagram tspan.d-fall{fill:var(--c-fall,#b8322a)}
+    .sx-diagram :not(text):not(tspan).d-fall{stroke:var(--c-fall,#b8322a);fill:none}
+    .sx-diagram .d-grid{stroke:var(--c-grid,#c9ced8);fill:none}
+  </style>
+  <defs>
+    <pattern id="mg-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <path class="d-recovery" d="M0 0V10" stroke-width="3" stroke-opacity=".45"/>
+    </pattern>
+    <marker id="mg-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path class="d-main-fill" d="M0 0L10 5L0 10z"/>
+    </marker>
+    <marker id="mg-arrow-time" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path class="d-grid" d="M1 1L9 5L1 9" stroke-width="2"/>
+    </marker>
+  </defs>
+
+  <text class="d-fg" x="22" y="34" font-size="28" font-weight="700">Rollout from the mixed policy</text>
+  <text class="d-muted" x="742" y="34" font-size="22" text-anchor="end">time</text>
+  <path class="d-grid" d="M748 27H780" stroke-width="2" marker-end="url(#mg-arrow-time)"/>
+  <rect class="d-main-fill" x="22" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="86" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="150" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="214" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="278" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-recovery-fill" x="342" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-recovery-fill" x="406" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-recovery-fill" x="470" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="534" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="598" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="662" y="50" width="54" height="50" rx="8"/>
+  <rect class="d-main-fill" x="726" y="50" width="54" height="50" rx="8"/>
+  <path class="d-main" d="M24 108V114H330V108" stroke-width="2"/>
+  <text class="d-main" x="177" y="142" font-size="24" text-anchor="middle">main policy <tspan font-style="italic">π</tspan><tspan font-size="15" dy="5">θ</tspan><tspan dy="-5"></tspan></text>
+  <path class="d-recovery" d="M344 108V114H522V108" stroke-width="2"/>
+  <text class="d-recovery" x="433" y="142" font-size="24" text-anchor="middle">recovery acts</text>
+  <path class="d-main" d="M536 108V114H778V108" stroke-width="2"/>
+  <text class="d-main" x="657" y="142" font-size="24" text-anchor="middle">main policy <tspan font-style="italic">π</tspan><tspan font-size="15" dy="5">θ</tspan><tspan dy="-5"></tspan></text>
+
+  <text class="d-fg" x="22" y="196" font-size="28" font-weight="700">Standard PPO update</text>
+  <rect class="d-main-fill" x="22" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="23" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="49" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="86" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="87" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="113" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="150" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="151" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="177" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="214" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="215" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="241" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="278" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="279" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="305" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect fill="url(#mg-hatch)" x="342" y="212" width="54" height="50" rx="8"/>
+  <rect class="d-recovery" x="343" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-recovery" x="369" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect fill="url(#mg-hatch)" x="406" y="212" width="54" height="50" rx="8"/>
+  <rect class="d-recovery" x="407" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-recovery" x="433" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect fill="url(#mg-hatch)" x="470" y="212" width="54" height="50" rx="8"/>
+  <rect class="d-recovery" x="471" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-recovery" x="497" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="534" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="535" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="561" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="598" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="599" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="625" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="662" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="663" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="689" y="245" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="726" y="212" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="727" y="213" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="753" y="245" font-size="26" text-anchor="middle">∇</text>
+  <text class="d-fall" x="433" y="294" font-size="24" text-anchor="middle" font-weight="600">scored as <tspan font-style="italic">π</tspan><tspan font-size="15" dy="5">θ</tspan><tspan dy="-5"> actions, biased</tspan></text>
+
+  <text class="d-fg" x="22" y="346" font-size="28" font-weight="700">SafeExplorer masked gradient</text>
+  <text class="d-muted" x="22" y="376" font-size="22" font-style="italic">never evaluates the recovery density</text>
+  <rect class="d-main-fill" x="22" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="23" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="49" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="86" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="87" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="113" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="150" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="151" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="177" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="214" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="215" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="241" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="278" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="279" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="305" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="534" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="535" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="561" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="598" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="599" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="625" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="662" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="663" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="689" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-main-fill" x="726" y="390" width="54" height="50" rx="8" fill-opacity=".16"/>
+  <rect class="d-main" x="727" y="391" width="52" height="48" rx="7" stroke-width="2"/>
+  <text class="d-fg" x="753" y="423" font-size="26" text-anchor="middle">∇</text>
+  <rect class="d-grid" x="343" y="391" width="180" height="48" rx="7" stroke-width="2" stroke-dasharray="6 6"/>
+  <text class="d-muted" x="433" y="423" font-size="22" text-anchor="middle">no score term</text>
+
+  <path class="d-main" d="M49 442V462" stroke-width="2"/>
+  <path class="d-main" d="M113 442V462" stroke-width="2"/>
+  <path class="d-main" d="M177 442V462" stroke-width="2"/>
+  <path class="d-main" d="M241 442V462" stroke-width="2"/>
+  <path class="d-main" d="M305 442V462" stroke-width="2"/>
+  <path class="d-recovery" d="M369 442V462" stroke-width="2"/>
+  <path class="d-recovery" d="M433 442V462" stroke-width="2"/>
+  <path class="d-recovery" d="M497 442V462" stroke-width="2"/>
+  <path class="d-main" d="M561 442V462" stroke-width="2"/>
+  <path class="d-main" d="M625 442V462" stroke-width="2"/>
+  <path class="d-main" d="M689 442V462" stroke-width="2"/>
+  <path class="d-main" d="M753 442V462" stroke-width="2"/>
+  <path class="d-main" d="M753 462H26" stroke-width="3" marker-end="url(#mg-arrow)"/>
+  <text class="d-fg" x="22" y="496" font-size="24">advantage Â<tspan font-size="15" dy="5">t</tspan><tspan dy="-5"> still runs over recovery segments</tspan></text>
+
+  <text class="d-muted" x="22" y="532" font-size="24"><tspan class="d-fg" font-size="26">∇</tspan>  =  score term ∇ log <tspan font-style="italic">π</tspan><tspan font-size="15" dy="5">θ</tspan><tspan dy="-5">(a</tspan><tspan font-size="15" dy="5">t</tspan><tspan dy="-5"> | s</tspan><tspan font-size="15" dy="5">t</tspan><tspan dy="-5">)</tspan></text>
+</svg>

@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the TMLR paper below."
+title: "SafeExplorer project page"
+authors:
+  - family-names: "Daneshmand"
+    given-names: "Elham"
+  - family-names: "Khadiv"
+    given-names: "Majid"
+  - family-names: "Berseth"
+    given-names: "Glen"
+  - family-names: "Lin"
+    given-names: "Hsiu-Chin"
+preferred-citation:
+  type: article
+  title: "SafeExplorer: An Unbiased Mixed-Policy Gradient for Reinforcement Learning with Recovery Interventions"
+  authors:
+    - family-names: "Daneshmand"
+      given-names: "Elham"
+    - family-names: "Khadiv"
+      given-names: "Majid"
+    - family-names: "Berseth"
+      given-names: "Glen"
+    - family-names: "Lin"
+      given-names: "Hsiu-Chin"
+  journal: "Transactions on Machine Learning Research"
+  issn: "2835-8856"
+  year: 2026
+  month: 10
+  url: "https://openreview.net/forum?id=ppOrbSsMM0"
