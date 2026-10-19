@@ -11,6 +11,7 @@ Authors: Elham Daneshmand, Majid Khadiv, Glen Berseth, Hsiu-Chin Lin. Cite as: E
 - [Project page as Markdown](https://lhumd.github.io/safeexplorer/index.md): abstract, method with equations, algorithm, results tables, limitations and BibTeX
 - [OpenReview forum](https://openreview.net/forum?id=ppOrbSsMM0): the TMLR publication record
 - [arXiv](https://arxiv.org/abs/2607.08925): preprint record
+- [Video](https://www.youtube.com/watch?v=Fcvv6jQkTjY): five-minute narrated presentation
 - [PDF](https://lhumd.github.io/safeexplorer/paper.pdf): full paper with proofs and appendices
 
 ## Optional
